@@ -18,6 +18,7 @@ class Views:
 
     @app.route('/search/<input>')
     def main(input):
+        global api
         class MyStreamListener(tweepy.StreamListener):
             def on_status(self, status):
                 this_status = status
