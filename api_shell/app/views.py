@@ -15,15 +15,14 @@ class Views:
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
 
-    class MyStreamListener(tweepy.StreamListener):
-        def on_status(self, status):
-            this_status = status
-            # print(this_status.user.screen_name)
-            print [this_status.text, this_status.user.screen_name, this_status.user.profile_image_url_https]
-
 
     @app.route('/search/<input>')
     def main(input):
+        class MyStreamListener(tweepy.StreamListener):
+            def on_status(self, status):
+                this_status = status
+                # print(this_status.user.screen_name)
+                print [this_status.text, this_status.user.screen_name, this_status.user.profile_image_url_https]
         myStreamListener = MyStreamListener()
         myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
         tag = u'Fidel'
